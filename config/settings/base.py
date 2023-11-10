@@ -38,7 +38,7 @@ ALLOWED_HOSTS = [get_env_value('ALLOWED_HOSTS')]
 
 
 # Application definition
-LOCAL_APPS = ['apps.employee','apps.client', 'apps.product', 'apps.order']
+LOCAL_APPS = ['apps.employee', 'apps.client', 'apps.product', 'apps.order']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -47,9 +47,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    
+
     'rest_framework',
-    'corsheaders',    
+    'corsheaders',
 ] + LOCAL_APPS
 
 MIDDLEWARE = [
