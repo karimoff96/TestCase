@@ -1,5 +1,5 @@
 # TestCase Project
-[![TestCase Project](https://github.com/karimoff96/TestCase.git/actions/workflows/deploy.yml/badge.svg?branch=master)](https://github.com/karimoff96/TestCase.git/actions/workflows/deploy.yml)
+[![TestCase Project](https://github.com/karimoff96/TestCase.git)](https://github.com/karimoff96/TestCase.git)
 
 ## Table of Contents
 
