@@ -5,7 +5,7 @@ from model_utils.models import TimeStampedModel
 
 class Employee(TimeStampedModel, models.Model):
     full_name = models.CharField(max_length=255, blank=True)
-    birthdate = models.DateField(auto_now_add=True)
+    birthdate = models.DateField()
 
     def __str__(self) -> str:
         return self.full_name
