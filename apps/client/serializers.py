@@ -10,8 +10,9 @@ class CustomPageNumberPagination(PageNumberPagination):
     max_page_size = 100
 
 
-class ClientSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Client
-        fields = "__all__"
+class ClientStatisticsSerializer(serializers.Serializer):
+    client_id = serializers.IntegerField(source='id')
+    full_name = serializers.CharField()
+    product_count = serializers.IntegerField()
+    total_sales = serializers.DecimalField(max_digits=10, decimal_places=2)
 

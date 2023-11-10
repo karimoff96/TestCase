@@ -1,8 +1,7 @@
 from django.urls import path
-from .views import EmployeeLitsAPIView, EmployeeRetrieveAPIViewAPIView
+from .views import EmployeeStatisticsAPIView, EmployeeStatisticsAPIView
 
 urlpatterns = [
-    path('statistics/', EmployeeLitsAPIView.as_view()),
-    path('statistics/employee/<int:id>/',
-         EmployeeRetrieveAPIViewAPIView.as_view()),
+    path('statistics/employee/<int:id>/', EmployeeStatisticsAPIView.as_view(), name='employee-statistics-detail'),
+    path('statistics/', EmployeeStatisticsAPIView.as_view(), name='employee-statistics'),
 ]

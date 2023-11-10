@@ -1,28 +1,24 @@
-from django_filters.rest_framework import DjangoFilterBackend
-from rest_framework.filters import SearchFilter
-from rest_framework.generics import (
-    ListAPIView,
-    RetrieveAPIView,
-)
-from django.shortcuts import render, redirect, HttpResponse
-from .models import Client
-from .serializers import (
-    CustomPageNumberPagination,
-    ClientSerializer
-)
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from django.db.models import Count, Sum
+from apps.client.models import Client
+from apps.client.serializers import ClientStatisticsSerializer
 
-# Create your views here.
+class ClientStatisticsAPIView(APIView):
+    def get(self, request, id=None, *args, **kwargs):
+        month = self.request.query_params.get('month')
+        year = self.request.query_params.get('year')
 
+        queryset = Client.objects.annotate(
+            product_count=Count('orders__products', distinct=True),
+            total_sales=Sum('orders__price')
+        )
 
-class ClientLitsAPIView(ListAPIView):
-    queryset = Client.objects.all().order_by("-pk")
-    serializer_class = ClientSerializer
-    filter_backends = [DjangoFilterBackend, SearchFilter]
-    search_fields = ["full_name", 'birthdate']
-    filterset_fields = ["full_name", 'birthdate']
-    pagination_class = CustomPageNumberPagination
+        if id:
+            queryset = queryset.filter(id=id)
 
+        if month and year:
+            queryset = queryset.filter(orders__date__month=month, orders__date__year=year)
 
-class ClientRetrieveAPIViewAPIView(RetrieveAPIView):
-    queryset = Client.objects.all()
-    serializer_class = ClientSerializer
+        serializer = ClientStatisticsSerializer(queryset, many=True)
+        return Response(serializer.data)
